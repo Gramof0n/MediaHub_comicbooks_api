@@ -1,0 +1,341 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "API for comics",
+    "version" : "1.0.0",
+    "title" : "Comicbook API",
+    "contact" : {
+      "email" : "nikola.milovanovic@student.um.si"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "paths" : {
+    "/comics" : {
+      "get" : {
+        "summary" : "Returns all comics",
+        "description" : "Use this to request all comics from the database",
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Comic"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/comics/post" : {
+      "post" : {
+        "summary" : "Insert a comic.",
+        "description" : "Use this to insert a comic into the database.",
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Comic"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful call"
+          }
+        }
+      }
+    },
+    "/comics/id/{id}" : {
+      "get" : {
+        "summary" : "Returns a comic with a specific ID.",
+        "description" : "Use this to request a comics with a specific id from the database",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "description" : "String value of a comic id",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful call",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Comic"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comics/title/{comicTitle}" : {
+      "get" : {
+        "summary" : "Returns a comic with a specific title.",
+        "description" : "Use this to request a comics with a specific title from the database",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "comicTitle",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful call",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Comic"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comics/publisher/{publisher}" : {
+      "get" : {
+        "summary" : "Returns all comics by the selected publisher.",
+        "description" : "Use this to request all comics from the specific publisher",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "publisher",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful call",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Comic"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comics/issue/{noOfIssue}" : {
+      "get" : {
+        "summary" : "Returns all comics with requested issue.",
+        "description" : "Use this to request all comics with the specific issue.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "noOfIssue",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful call",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Comic"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comics/genre/{genre}" : {
+      "get" : {
+        "summary" : "Returns all comics of the selected genre.",
+        "description" : "Use this to request all comics of the specific genre.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "genre",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful call",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Comic"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comics/delete/{comicId}" : {
+      "delete" : {
+        "summary" : "Removes a comic by it's id.",
+        "description" : "Use this to remove a comic with the specific ID.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "comicId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful call"
+          }
+        }
+      }
+    },
+    "/comics/edit/{comicId}" : {
+      "put" : {
+        "summary" : "Edits a comic by it's id.",
+        "description" : "Use this to edit a comic with the specific ID.",
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ComicWithoutId"
+              }
+            }
+          }
+        },
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "comicId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful call"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Comic" : {
+        "type" : "object",
+        "properties" : {
+          "_id" : {
+            "type" : "string",
+            "example" : "5fcbff3843e97a0a5060663e"
+          },
+          "title" : {
+            "type" : "string",
+            "example" : "Watchmen"
+          },
+          "genre" : {
+            "type" : "string",
+            "example" : "Superhero"
+          },
+          "authors" : {
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "type" : "string",
+                "example" : "Alan"
+              },
+              "surname" : {
+                "type" : "string",
+                "example" : "Moore"
+              }
+            }
+          },
+          "publisher" : {
+            "type" : "string",
+            "example" : "DC comics"
+          },
+          "noOfPages" : {
+            "type" : "string",
+            "example" : 35
+          },
+          "issue" : {
+            "type" : "integer",
+            "example" : 1
+          }
+        }
+      },
+      "ComicWithoutId" : {
+        "type" : "object",
+        "properties" : {
+          "title" : {
+            "type" : "string",
+            "description" : "Comic title",
+            "example" : "Watchmen"
+          },
+          "genre" : {
+            "type" : "string",
+            "example" : "Superhero"
+          },
+          "authors" : {
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "type" : "string",
+                "example" : "Alan"
+              },
+              "surname" : {
+                "type" : "string",
+                "example" : "Moore"
+              }
+            }
+          },
+          "publisher" : {
+            "type" : "string",
+            "example" : "DC comics"
+          },
+          "noOfPages" : {
+            "type" : "integer",
+            "example" : 35
+          },
+          "issue" : {
+            "type" : "integer",
+            "example" : 1
+          }
+        }
+      }
+    }
+  }
+}
